@@ -1,0 +1,22 @@
+// // 1. Import the initial variables
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "../node_modules/bulma/sass/utilities/functions";
+
+
+// 2. Set your own initial variables
+$navbar-background-color: $grey-darker;
+$navbar-dropdown-background-color: $navbar-background-color;
+$navbar-dropdown-item-hover-background-color: $black;
+$navbar-height: 3.5rem;
+$gap: 32px;
+$tablet: 769px;
+$desktop:	960px + (2 * $gap);
+$widescreen: 9999999px;
+$fullhd: 9999999px;
+
+// $dark: #194769;
+// $success: #1DCED8;
+// $danger: #F2855E;
+
+// 6. Import the rest of Bulma
+@import "../node_modules/bulma/bulma";
