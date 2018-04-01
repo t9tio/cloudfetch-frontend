@@ -4,6 +4,7 @@ import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
 // import { observable } from "mobx";
 import ProjectList from './ProjectList';
+import gravatarUrl from 'gravatar-url';
 
 @observer
 class Explore extends Component {
@@ -21,25 +22,24 @@ class Explore extends Component {
 
     render() {
         const createDateDetail = new Date(userStore.user.createdAt);
-        const createDate = `${createDateDetail.getFullYear()}-${createDateDetail.getMonth()}-${createDateDetail.getDate()}`;
+        const createDate = `${createDateDetail.getFullYear()}/${createDateDetail.getMonth()}/${createDateDetail.getDate()}`;
         
         // https://stackoverflow.com/questions/29852998/getting-query-parameters-from-react-router-hash-fragment
         const paramsString = this.props.location.search;
         const params = new URLSearchParams(paramsString); 
         const activeTab = params.get('tab');
-        console.log('$$activeTab', activeTab);
+
         return (
             <section className="container">
                 <br/>
                 <div className="columns">
                     <div className="column is-one-quarter">
-                        <h1 className="title">{userStore.user.username}</h1>
-                        Joined at {createDate}
-                        <h2>
-                            <a href={`mailto:${userStore.user.email}`}>{userStore.user.email}</a>
-                        </h2>
-
+                        <img src={userStore.user.email ? gravatarUrl(userStore.user.email, {size: 400, default: 'retro'}) : ''} style={{maxWidth:"200px"}}/><br/>
+                        <span className="title">{userStore.user.username}</span><br/>
+                        Joined at {createDate}<br/>
+                        <a href={`mailto:${userStore.user.email}`}>{userStore.user.email}</a><br/>
                     </div>
+
                     <div className="column is-three-quarters">
                         <div className="tabs is-boxed">
                             <ul>

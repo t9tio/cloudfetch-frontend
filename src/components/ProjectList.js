@@ -6,7 +6,7 @@ const ProjectCard = ({project, columnCount}) => {
     const createdBy = project.createdBy;
     return <div className={`tile is-vertical is-parent is-${12/columnCount}`}>
         <div className="tile is-child box">
-            <p className="title">
+            <p className="title" style={{fontSize:"1.2rem"}}>
                 <Link to={`/project/${project.id}`}>{createdBy ? `${createdBy.username}/` : ''}{project.name}</Link>
             </p>
                 

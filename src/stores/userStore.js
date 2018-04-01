@@ -33,9 +33,16 @@ class User {
         crawlers: [{
             id: '',
             name: '',
+            url: '',
+            cron: '',
+            status: '',
+            timezone: '',
+            contentCount: '',
             records: [],
         }]
     };
+
+    @observable isLoading = false;
 
     @action async signup(username, email, password) {
         this.me = await requests.signup(username, email, password);
@@ -71,6 +78,7 @@ class User {
         const projects = await requests.getProjects();
         this.projects = projects;
     }
+
     @action async getProject(id) {
         const project = await requests.getProject(id);
         this.project = project;
@@ -84,6 +92,32 @@ class User {
     @action async getProjectStargazers(projectId) {
         const users = await requests.projectStargazers(projectId);
         this.users = users;
+    }
+
+    // FIXME
+    @action clearProject() {
+        this.project = {
+            id: '',
+            name: '',
+            description: '',
+            star: '',
+            isStarred: '',
+            createdAt: '',
+            createdBy: {
+                id: '',
+                username: '',
+            },
+            crawlers: [{
+                id: '',
+                name: '',
+                url: '',
+                cron: '',
+                status: '',
+                timezone: '',
+                contentCount: '',
+                records: [],
+            }]
+        };
     }
 }
 

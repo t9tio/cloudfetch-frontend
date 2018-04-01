@@ -1,8 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
-const url = 'https://api.capercloud.com/graphql';
+import { backendUrl } from './config';
 
-
-let client = new GraphQLClient(url, {
+let client = new GraphQLClient(backendUrl, {
     headers: {
         'x-access-token':  window.localStorage.getItem('authToken') || '',
     },
@@ -30,7 +29,7 @@ const signup = async (username, email, password) => {
     const data = await client.request(query, variables);
     const token = data.signup.token;
     window.localStorage.setItem('authToken', token);
-    client = new GraphQLClient(url, {
+    client = new GraphQLClient(backendUrl, {
         headers: {
             'x-access-token':  token,
         },
@@ -59,7 +58,7 @@ const signin = async (email, password) => {
     const data = await client.request(query, variables);
     const token = data.signin.token;
     window.localStorage.setItem('authToken', token);
-    client = new GraphQLClient(url, {
+    client = new GraphQLClient(backendUrl, {
         headers: {
             'x-access-token':  token,
         },
@@ -68,7 +67,7 @@ const signin = async (email, password) => {
 };
 
 const signout = () => {
-    window.localStorage.removeItem('authToken')
+    window.localStorage.removeItem('authToken');
 };
 
 const getMe = async () => {
@@ -159,7 +158,10 @@ const getProject = async (id) => {
                 id
                 name
                 url
-                interval
+                cron
+                status
+                timezone 
+                contentCount
                 records {
                     id
                     name
@@ -178,11 +180,7 @@ const getProject = async (id) => {
 
 const crawl = async (crawlerId) => {
     const query = `mutation ($crawlerId: Int!) {
-        execute(crawlerId: $crawlerId){
-            name
-            content
-            createdAt
-        }
+        execute(crawlerId: $crawlerId)
     }`;
     const variables = {
         crawlerId,
@@ -256,6 +254,21 @@ const projectStargazers = async (projectId) => {
     return data.projectStargazers;
 };
 
+const getCrawledContents = async (crawlerId, offset, limit) => {
+    const query = `query ($crawlerId: Int!, $offset: Int!, $limit: Int!) {
+        crawledContents(crawlerId: $crawlerId, offset: $offset, limit: $limit){
+            contents
+            createdAt
+        }
+    }`;
+    const variables = {
+        crawlerId, offset, limit,
+    };
+
+    const data = await client.request(query, variables);
+    return data.crawledContents;
+};
+
 // const addProject;
 // const addCrawler;
 // const addRecord;
@@ -273,4 +286,5 @@ export default {
     unstar,
     userStarredProjects,
     projectStargazers,
+    getCrawledContents,
 };
