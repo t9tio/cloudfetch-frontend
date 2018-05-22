@@ -3,12 +3,15 @@ import requests from '../requests';
 
 class User {
     // set/delete local storage example: https://github.com/modelo/BIM_frontend-api-wrapper/blob/develop/web/stores/AppState.ts
+
+    // the current signedin user
     @observable me = {
         id: '',
         username: '',
         email: '',
         createdAt: '',
     }
+    // the user 'me' is viewing
     @observable user = {
         id: '',
         username: '',
@@ -25,6 +28,8 @@ class User {
         description: '',
         star: '',
         isStarred: '',
+        subscribeCount: '',
+        isSubscribed: '',
         createdAt: '',
         createdBy: {
             id: '',
@@ -74,8 +79,8 @@ class User {
         this.user = user;
     }
 
-    @action async getProjects() {
-        const projects = await requests.getProjects();
+    @action async getProjects(type) {
+        const projects = await requests.getProjects(type);
         this.projects = projects;
     }
 
@@ -86,6 +91,11 @@ class User {
 
     @action async getUserStarredProjects(userId) {
         const projects = await requests.userStarredProjects(userId);
+        this.projects = projects;
+    }
+
+    @action async getUserSubscribedProjects(userId) {
+        const projects = await requests.userSubscribedProjects(userId);
         this.projects = projects;
     }
 
@@ -102,6 +112,8 @@ class User {
             description: '',
             star: '',
             isStarred: '',
+            subscribeCount: '',
+            isSubscribed: '',
             createdAt: '',
             createdBy: {
                 id: '',

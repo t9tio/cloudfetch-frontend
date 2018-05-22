@@ -3,9 +3,13 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { observable } from "mobx";
 import userStore from '../stores/userStore';
+import uiStore from '../stores/uiStore';
 import requests from '../requests';
 import StarBtn from './StarBtn';
+import SubscribeBtn from './SubscribeBtn';
 import timeago from 'timeago.js';
+import Modal from './Modal';
+
 // import queryStr from 'query-str';
 // import setQuery from 'set-query-string';
 
@@ -26,9 +30,11 @@ const Record = ({ record, recordContent}) => {
     @observable isCrawling = false;
     @observable currentContentIndex = 0;
     @observable createdAt = '';
+    @observable crawlerStatus = false;
 
     async componentDidMount() {
         const crawler = this.props.crawler;
+        this.crawlerStatus = crawler.status;
         console.log('mount crawler');
         console.log(crawler.id, 'crawlerid');
         const { contents, createdAt } = (await requests.getCrawledContents(crawler.id, this.currentContentIndex, 1))[0];
@@ -59,12 +65,26 @@ const Record = ({ record, recordContent}) => {
         this.createdAt = new Date();
     }
 
+    async changeCrawlerStatus (crawlerId) {
+        if(this.crawlerStatus) {
+            await requests.pauseCrawl(userStore.project.id, crawlerId);
+            this.crawlerStatus = false;
+            console.log(this.crawlerStatus);
+        } else {
+            await requests.startCrawl(userStore.project.id, crawlerId);
+            this.crawlerStatus = true;
+            console.log(this.crawlerStatus);
+        }
+    }
+
     render() {
         const crawler = this.props.crawler;
+        console.log(this.props);
+        console.log('di', crawler.id);
         const createdAtStr = new Date(this.createdAt).toLocaleDateString() + ' ' + new Date(this.createdAt).toLocaleTimeString('en', { hour12: false });
         return (
             <div>
-                <div className="card" style={{}}>
+                <div className="card" >
                     <div className="card-header" style={{backgroundColor:"#f7f7f7"}}>
                         <div className="card-header-title">
                             <small>
@@ -75,19 +95,43 @@ const Record = ({ record, recordContent}) => {
                         <div className="">
                             <div className="dropdown is-hoverable is-right" style={{marginTop:5, marginRight:3}}>
                                 <div className="dropdown-trigger">
-                                    <button className="button is-light " aria-haspopup="true" aria-controls="dropdown-menu4">
-                                        <span>Fetcher Info</span>
+                                    <button className="button is-light " aria-haspopup="true" aria-controls={`dropdown-menu_${crawler.id}`}>
+                                        <span style={{color: this.crawlerStatus ? '#23d160': '#b5b5b5'}}>&#9679;</span>&nbsp;<span>Fetcher Info</span>
                                         <span className="icon is-small">
                                             <i className="fas fa-angle-down" aria-hidden="true"></i>
                                         </span>
                                     </button>
                                 </div>
-                                <div className="dropdown-menu" id="dropdown-menu4" role="menu">
+                                <div className="dropdown-menu" id={`dropdown-menu_${crawler.id}`} role="menu">
                                     <div className="dropdown-content"style={{width: "14rem", background:"#f2f2f2"}}>
                                         <div className="dropdown-item">Crawl Interval: {crawler.cron}</div>
-                                        <div className="dropdown-item">Crawl Status: {crawler.status}</div>
-                                        <div className="dropdown-item">Timezone: {crawler.timezone}</div>
+                                        <div className="dropdown-item">Crawl Status: &nbsp; 
+                                        <div className="field" style={{display: 'inline-block'}}>
+                                            <input id={`switchExample_${crawler.id}`} type="checkbox" name="switchExample" className="switch is-rounded is-success" 
+                                                checked={
+                                                    this.crawlerStatus ? 'checked' : ''
+                                                }
+                                                onClick={() => {
+                                                    this.changeCrawlerStatus(crawler.id);
+                                                }}
+                                            />
+                                            <label htmlFor={`switchExample_${crawler.id}`}></label>
+                                        </div>
+                                        </div>
+
+                                        {/*<div className="dropdown-item">Timezone: {crawler.timezone}</div>*/}
                                         <div className="dropdown-item">Content Count: {crawler.contentCount}</div> 
+                                        {
+                                            !(userStore.me.id === userStore.project.createdBy.id) ? '' : (
+                                                <div className="dropdown-item">
+                                                    <button className="button is-small is-danger" onClick={
+                                                        () => {
+                                                            requests
+                                                        }
+                                                    }>Remove fetcher</button>
+                                                </div> 
+                                            ) 
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +141,13 @@ const Record = ({ record, recordContent}) => {
                         <div className="content" style={{position: "relative"}}>
                             <a style={{position:"absolute", top:6, right:0}}>
 
-                                <span className= {`crawlBtn button is-small ${this.isCrawling ? 'is-loading' : ''}`}onClick={()=>{this.crawl(crawler.id)}}> Fetch now</span>
+                                <span className= {`crawlBtn button is-small ${this.isCrawling ? 'is-loading' : ''}`}
+                                    onClick={()=>{
+                                        console.log(crawler.id);
+                                        this.crawl(crawler.id);
+                                    }}>
+                                    Fetch now
+                                </span>
             
                             </a>
 
@@ -117,6 +167,7 @@ const Record = ({ record, recordContent}) => {
                             </table>
                             <div style={{textAlign:"right"}}>
                                 {/*TODO: times ago*/}
+
                                 <small>
                                 Fetched at &nbsp;<strong>{createdAtStr}</strong>
                                 </small>
@@ -140,8 +191,9 @@ const Record = ({ record, recordContent}) => {
     }
 }
 
-// TODO: better UI for different use case; project stargazer page; 
+// TODO: better UI for different use case; project stargazer page;
 @observer class Project extends Component {
+    @observable isModalVisable = false;
 
     async componentDidMount() {
         await userStore.getProject(this.props.match.params.id);
@@ -175,14 +227,17 @@ const Record = ({ record, recordContent}) => {
                                 <div className="level-item">
                                     <StarBtn project={project} />
                                 </div>
+                                <div className="level-item">
+                                    <SubscribeBtn project={project}/>
+                                </div>
                             </div>
                         </div>
 
                         <div className="level-right">
                             <strong className="level-item"><a 
-                                className="button is-success"
+                                className="button"
                                 onClick={() => this.crawlAll()}>
-                                Crawl all
+                                Fetch all now
                             </a></strong>
                         </div>
                     </nav>
@@ -194,10 +249,19 @@ const Record = ({ record, recordContent}) => {
                     {
                         project.crawlers
                             .map((crawler, i) => {
+                                console.log(crawler.id, 'project', i);
                                 if (crawler.id) return <Crawler crawler={crawler} key={i}/>;
                             })
                     }
+
+                    {
+                        !(userStore.me.id === userStore.project.createdBy.id) ? '' : (
+                            <a className="button" onClick={() => {uiStore.isAddFetcherModalVisable = true}}> Add Fetcher </a>
+                        ) 
+                    }
+                    
                 </div>
+                <Modal/>
             </div>
         );
     }

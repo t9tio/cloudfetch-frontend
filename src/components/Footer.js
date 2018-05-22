@@ -3,12 +3,14 @@ import React from "react";
 export default function Footer () {
     return (<footer className="footer">
         <div className="container">
-            <div className="content has-text-centered">
-                <p>
-                    <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-          is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-                </p>
+            <hr/>
+            <div style={{ float:'left'}}>
+                Build with <i className="far fa-heart"></i>  by  <a> Tim Qian</a>
+            </div>
+            <div style={{ float: 'right'}}>
+                <a className="button is-white"><i className="fab fa-slack"></i></a>
+                <a className="button is-white"><i className="fab fa-weixin"></i></a>
+                <a className="button is-white"><i className="fas fa-envelope"></i></a>
             </div>
         </div>
     </footer>)

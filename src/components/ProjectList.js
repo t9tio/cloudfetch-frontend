@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import StarBtn from './StarBtn';
+import SubscribeBtn from './SubscribeBtn';
 
 const ProjectCard = ({project, columnCount}) => {
     const createdBy = project.createdBy;
@@ -11,7 +12,8 @@ const ProjectCard = ({project, columnCount}) => {
             </p>
                 
             <div className="content"> {project.description} </div>
-            <StarBtn project={project} /> 
+            <StarBtn project={project} /> &nbsp;
+            <SubscribeBtn project={project}/>
         </div>
     </div>
 };

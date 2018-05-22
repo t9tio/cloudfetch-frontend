@@ -1,42 +1,52 @@
-import React from "react";
-// TODO
-export default function AddMonitor() {
-    return (
-        <section className="section">
-            <div className="container">
-                <progress className="progress is-small" value="15" max="100" />
+import React, {Component} from 'react';
+import { observer } from 'mobx-react';
+import requests from '../requests';
+import { withRouter } from "react-router-dom";
+import userStore from "../stores/userStore";
 
-                <label className="label">Step 1: enter monitor url</label>
-                <div className="field is-grouped">
-                    <p className="control is-expanded">
-                        <input className="input" type="text" placeholder="Url" />
-                    </p>
-                    <p className="control">
-                        <a className="button is-info">Scrap</a>
-                    </p>
-                </div>
+@observer class AddMonitor extends Component{
 
-                <div>
-                    <div className="field">
-                        <label className="label">Step 2: select content to monit</label>
+    async createProject() {
+        const name = document.querySelector('#projectName').value;
+        const description = document.querySelector('#projectDescription').value;
+        userStore.isLoading = true;
+        const data = await requests.addProject(name, description);
+        userStore.isLoading = false;
+        const { id } = data.addProject;
+        // Ref: https://stackoverflow.com/a/34735738/4674834
+        this.props.history.push(`project/${id}`);
+    }
+
+    render() {
+        return (
+            <div>
+                <section className="section container"> 
+                    <div className="container" style={{width:'80%'}}>
+                        <h2 className="is-size-4 has-text-weight-semibold">Create a new project</h2>
+                        <p className="is-size-6">A project can contain one or more fetchers</p>
+                        <hr/>
+
+                        <div className="field">
+                            <label className="label">Project name</label>
+                            <div className="control">
+                                <input id="projectName" style={{width:'13rem'}} className="input" type="text"/>
+                            </div>
+                            <p className="help">Great repository names are short and memorable.</p>
+                        </div>
+
+                        <div className="field">
+                            <label className="label">Description <small style={{color:"#888"}}>(optional)</small></label>
+                            <div className="control">
+                                <input id="projectDescription" className="input" type="text" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <button className="button is-success" onClick={() => this.createProject()}>Create project</button>&nbsp;
                     </div>
-                    {/* <iframe src="" name="targetframe" allowTransparency="true" scrolling="yes" frameborder="0" width="100%" height="800"></iframe> */}
-
-
-                </div>
-
-                <div>
-                    <div className="field">
-                        <label className="label">Step 3: process content</label>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="field">
-                        <label className="label">Step 4: choose the monit way</label>
-                    </div>
-                </div>
+                </section>
             </div>
-        </section>
-    );
+        );
+    }
 }
+
+export default withRouter(AddMonitor);

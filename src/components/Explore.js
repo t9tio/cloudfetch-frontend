@@ -2,20 +2,47 @@ import React, { Component } from 'react';
 import userStore from '../stores/userStore';
 import { observer } from 'mobx-react';
 import ProjectList from './ProjectList';
+import { Link } from 'react-router-dom';
 
 @observer
 class Explore extends Component {
     async componentDidMount() {
-        await userStore.getProjects();
+        const paramsString = this.props.location.search;
+        const params = new URLSearchParams(paramsString);
+        const activeTab = params.get('tab');
+        if (activeTab === 'new') {
+            await userStore.getProjects('NEW');
+        } else {
+            await userStore.getProjects('TOP');
+        }
     }
 
     render() {
+        // https://stackoverflow.com/questions/29852998/getting-query-parameters-from-react-router-hash-fragment
+        const paramsString = this.props.location.search;
+        const params = new URLSearchParams(paramsString); 
+        const activeTab = params.get('tab');
         return (
-            <section className="section">
-                <div className="container">
-                    <ProjectList projects={userStore.projects} columnCount={3}/>
+            <div className="container">
+                <br/>
+                <div className="tabs is-boxed">
+                    <ul>
+                        {/**link to url with search: https://reacttraining.com/react-router/web/api/Link/to-object */}
+                        <li className={!activeTab ? 'is-active' : ''}>
+                            <Link to={{ search: '' }} onClick={() => userStore.getProjects('TOP')}>
+                                Hot
+                            </Link>
+                        </li>
+                        <li className={activeTab === 'new' ? 'is-active' : ''}>
+                            <Link to={{ search: '?tab=new' }} onClick={() => userStore.getProjects('NEW')}>
+                                New
+                            </Link>
+                        </li>
+
+                    </ul>
                 </div>
-            </section>
+                <ProjectList projects={userStore.projects} columnCount={3}/>
+            </div>
         );
     }
 }

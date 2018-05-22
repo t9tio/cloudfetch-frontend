@@ -1,5 +1,4 @@
 import React from 'react';
-import Explore from './Explore';
 
 export default function Home () {
     return (
@@ -8,10 +7,10 @@ export default function Home () {
                 <div className="hero-body">
                     <div className="container">
                         <h1 className="title">
-                            Caper 
+                            CloudFetch
                         </h1>
                         <h2 className="subtitle">
-                            Morden data collector/monitor
+                            Fetch data for you from any website, with any time interval.
                         </h2>
                         <p className="content">
                             {/* Site uptime monit.
@@ -22,7 +21,6 @@ export default function Home () {
                 </div>
             </section>
 
-            <Explore/>
         </div>
     );
 }

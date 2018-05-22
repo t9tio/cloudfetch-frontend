@@ -13,16 +13,16 @@ class StarBtn extends Component {
 
     async toggleStar(project) {
         if (!this.starToggled) {
-            if (project.isStarred) {
-                await requests.unstar(project.id);
+            if (project.isSubscribed) {
+                await requests.unsubscribe(project.id);
             } else {
-                await requests.star(project.id);
+                await requests.subscribe(project.id);
             }
         } else {
-            if (project.isStarred) {
-                await requests.star(project.id);
+            if (project.isSubscribed) {
+                await requests.subscribe(project.id);
             } else {
-                await requests.unstar(project.id);
+                await requests.unsubscribe(project.id);
             }
         }
         this.starToggled = !this.starToggled;
@@ -30,11 +30,11 @@ class StarBtn extends Component {
 
     render() {
         const { project } = this.props;
-        let starCount = project.star;
-        let isStarred = project.isStarred;
+        let starCount = project.subscribeCount;
+        let isStarred = project.isSubscribed;
         if (this.starToggled) {
             isStarred = !isStarred;
-            if (project.isStarred) {
+            if (project.isSubscribed) {
                 starCount--;
             } else {
                 starCount++;
@@ -44,9 +44,9 @@ class StarBtn extends Component {
             <div className="tags has-addons" style={{display:"inline"}}>
                 <a onClick={() => this.toggleStar(project)}>
                     <strong className="tag button" disabled={userStore.me.username ? false : true}>
-                        <i className="fas fa-star"/>
+                        <i className="fas fa-eye"></i>
                         &nbsp;
-                        {isStarred ? 'Unstar' : 'Star'}
+                        {isStarred ? 'Unsubscribe' : 'Subscribe'}
                     </strong>
                 </a>
                 <a className="tag button is-dark">

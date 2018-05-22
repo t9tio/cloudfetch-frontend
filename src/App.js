@@ -16,7 +16,7 @@ import Project from './components/Project';
 import Member from './components/Member';
 import AddMonitor from './components/AddMonitor';
 import IsLoading from './components/IsLoading';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 
 @observer
 class App extends Component {
@@ -38,7 +38,7 @@ class App extends Component {
                     <Route path="/explore" component={Explore}/>
                     <Route path="/project/:id" component={Project}/>
                     <Route path="/addMonitor" component={AddMonitor}/>
-                    {/*<Footer/>*/}
+                    <Footer/>
                     <IsLoading isLoading={userStore.isLoading}/>
                 </div>
             </Router>

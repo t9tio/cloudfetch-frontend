@@ -104,6 +104,8 @@ const getUser = async (userId) => {
                 description
                 star
                 isStarred
+                subscribeCount
+                isSubscribed
                 createdAt
                 createdBy {
                     id
@@ -121,23 +123,29 @@ const getUser = async (userId) => {
     return data.user;
 };
 
-const getProjects = async () => {
-    const query = `query{
-        projects(type: TOP, offset: 0, limit: 100){
+const getProjects = async (type) => {
+    const offset = 0;
+    const limit = 30;
+    const query = `query ($type: ProjectQueryType!, $offset: Int!, $limit: Int!){
+        projects(type: $type, offset: $offset, limit: $limit){
             id
             name
             description
             star
             isStarred
+            subscribeCount
+            isSubscribed
             createdAt
             createdBy {
                 id
                 username
             }
         }
-      }`;
-
-    const data = await client.request(query);
+    }`;
+    const variables = {
+        type, offset, limit,
+    }
+    const data = await client.request(query, variables);
     return data.projects;
 };
 
@@ -149,6 +157,8 @@ const getProject = async (id) => {
             description
             star
             isStarred
+            subscribeCount
+            isSubscribed
             createdAt
             createdBy {
                 id
@@ -220,6 +230,8 @@ const userStarredProjects = async (userId) => {
             description
             star
             isStarred
+            subscribeCount
+            isSubscribed
             createdAt
             createdBy {
                 id
@@ -233,9 +245,9 @@ const userStarredProjects = async (userId) => {
     };
 
     const data = await client.request(query, variables);
-    console.log(data.userStarredProjects, 'aa$');
     return data.userStarredProjects;
 };
+
 
 const projectStargazers = async (projectId) => {
     const query = `query ($projectId: Int!) {
@@ -254,6 +266,56 @@ const projectStargazers = async (projectId) => {
     return data.projectStargazers;
 };
 
+const subscribe = async (projectId) => {
+    const query = `mutation ($projectId: Int!) {
+        subscribe(projectId: $projectId)
+    }`;
+    const variables = {
+        projectId,
+    };
+
+    await client.request(query, variables);
+}
+
+const unsubscribe = async (projectId) => {
+    const query = `mutation ($projectId: Int!) {
+        unsubscribe(projectId: $projectId)
+    }`;
+    const variables = {
+        projectId,
+    };
+
+    await client.request(query, variables);
+};
+
+// TODO
+const userSubscribedProjects = async (userId) => {
+    const query = `query ($userId: Int!) {
+        userSubscribedProjects(userId: $userId) {
+            id
+            name
+            description
+            star
+            isStarred
+            subscribeCount
+            isSubscribed
+            createdAt
+            createdBy {
+                id
+                username
+            }
+        }
+    }`;
+
+    const variables = {
+        userId,
+    };
+
+    const data = await client.request(query, variables);
+    console.log(data.userSubscribedProjects, 'data');
+    return data.userSubscribedProjects;
+};
+
 const getCrawledContents = async (crawlerId, offset, limit) => {
     const query = `query ($crawlerId: Int!, $offset: Int!, $limit: Int!) {
         crawledContents(crawlerId: $crawlerId, offset: $offset, limit: $limit){
@@ -269,9 +331,64 @@ const getCrawledContents = async (crawlerId, offset, limit) => {
     return data.crawledContents;
 };
 
-// const addProject;
-// const addCrawler;
-// const addRecord;
+const getFullHtml = async (url) => {
+    const data = await client.request(`query ($url: String!) {
+        fullHtml(url: $url)
+    }`, {
+        url,
+    });
+
+    return data.fullHtml;
+};
+
+const addProject = async (name, description) => {
+    const data = await client.request(`mutation ($name: String!, $description: String!) {
+        addProject(name: $name, description: $description) {
+            id
+        }
+    }`, {
+        name, description,
+    });
+
+    return data;
+};
+
+const addCrawler = async (projectId, name, url, cron, timezone) => {
+    const data = await client.request(`mutation ($projectId: Int!, $name: String!, $url: String!, $cron: String!, $timezone: String!) {
+        addCrawler(projectId: $projectId, name: $name, url: $url, cron: $cron, timezone: $timezone) {
+            id
+        }
+    }`, {
+        projectId, name, url, cron, timezone,
+    });
+    return data;
+};
+
+const addRecord = async (projectId, crawlerId, name, xpath) => {
+    await client.request(`mutation ($projectId: Int!, $crawlerId: Int!, $name: String!, $xpath: String!) {
+        addRecord(projectId: $projectId, crawlerId: $crawlerId, name: $name, xpath: $xpath) {
+            id
+        }
+    }`, {
+        projectId, crawlerId, name, xpath,
+    })
+};
+
+const startCrawl = async (projectId, crawlerId) => {
+    await client.request(`mutation ($projectId: Int! ,$crawlerId: Int!) {
+        startCrawl(projectId: $projectId, crawlerId: $crawlerId)
+    }`, {
+        projectId, crawlerId,
+    });
+};
+
+const pauseCrawl = async (projectId, crawlerId) => {
+    await client.request(`mutation ($projectId: Int! ,$crawlerId: Int!) {
+        pauseCrawl(projectId: $projectId, crawlerId: $crawlerId)
+    }`, {
+        projectId, crawlerId,
+    });
+};
 
 export default {
     signup,
@@ -285,6 +402,15 @@ export default {
     star,
     unstar,
     userStarredProjects,
+    userSubscribedProjects,
     projectStargazers,
+    subscribe,
+    unsubscribe,
     getCrawledContents,
+    getFullHtml,
+    addProject,
+    addCrawler,
+    addRecord,
+    startCrawl,
+    pauseCrawl,
 };

@@ -18,6 +18,9 @@ class Explore extends Component {
         if (activeTab === 'stars') {
             await userStore.getUserStarredProjects(this.props.match.params.id);
         }
+        if (activeTab === 'subscribes') {
+            await userStore.getUserSubscribedProjects(this.props.match.params.id);
+        }
     }
 
     render() {
@@ -54,6 +57,11 @@ class Explore extends Component {
                                         Stars
                                     </Link>
                                 </li>
+                                <li className={activeTab === 'subscribes' ? 'is-active' : ''}>
+                                    <Link to={{ search: '?tab=subscribes' }} onClick={() => userStore.getUserSubscribedProjects(userStore.user.id)}>
+                                        Subscribes
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
 
@@ -63,6 +71,9 @@ class Explore extends Component {
                         
                         {
                             activeTab === 'stars' ? <ProjectList projects={userStore.projects} columnCount={2}/> : <span/>
+                        }
+                        {
+                            activeTab === 'subscribes' ? <ProjectList projects={userStore.projects} columnCount={2}/> : <span/>
                         }
                     </div>
                 </div>

@@ -57,17 +57,25 @@ class Nav extends Component {
                                             <strong>{userStore.me.username}</strong>
                                         </Link>
                                         <div className="navbar-dropdown is-right">
-                                            <Link to={`/member/${userStore.me.id}`} className="navbar-item" style={{color: 'white'}}>
+                                            <Link to={`/member/${userStore.me.id}`} className="navbar-item" style={{color: 'white'}} onClick={() => userStore.getUser(userStore.me.id)}>
                                                 Your profile
                                             </Link>
-
-                                            <Link className="navbar-item" style={{color: 'white'}} 
-                                                to={{
-                                                    pathname: `/member/${userStore.me.id}`,
-                                                    search: '?tab=stars',
-                                                }}>
-                                                Your stars
-                                            </Link>
+                                            {/**
+                                                <Link className="navbar-item" style={{color: 'white'}} 
+                                                    to={{
+                                                        pathname: `/member/${userStore.me.id}`,
+                                                        search: '?tab=subscribes',
+                                                    }}>
+                                                    Your subscribes
+                                                </Link>
+                                                <Link className="navbar-item" style={{color: 'white'}} 
+                                                    to={{
+                                                        pathname: `/member/${userStore.me.id}`,
+                                                        search: '?tab=stars',
+                                                    }}>
+                                                    Your stars
+                                                </Link>
+                                            */}
                                             <hr className="navbar-divider"/>
                                             <a className="navbar-item" onClick={() => userStore.signout()} style={{color: 'white'}}>
                                                 Sign out
