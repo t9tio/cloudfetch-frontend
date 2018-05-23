@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src",
     "start": "parcel public/index.html",
-    "build": "npm run lint && NODE_ENV=production && parcel build public/index.html --out-dir ./ "
+    "build": "npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./ "
   },
   "keywords": [],
   "author": "",

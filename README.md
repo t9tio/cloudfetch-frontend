@@ -18,3 +18,6 @@ git push
 ## Compatitors
 - http://www.fenmiaodata.com/
 - https://distill.io
+
+## Refs
+- [share slack invite url](http://qr.ae/TUTa8y)

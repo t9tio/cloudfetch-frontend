@@ -125,8 +125,9 @@ const Record = ({ record, recordContent}) => {
                                             !(userStore.me.id === userStore.project.createdBy.id) ? '' : (
                                                 <div className="dropdown-item">
                                                     <button className="button is-small is-danger" onClick={
-                                                        () => {
-                                                            requests
+                                                        async () => {
+                                                            await requests.removeCrawler(userStore.project.id, crawler.id);
+                                                            await userStore.getProject(userStore.project.id);
                                                         }
                                                     }>Remove fetcher</button>
                                                 </div> 

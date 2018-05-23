@@ -390,6 +390,14 @@ const pauseCrawl = async (projectId, crawlerId) => {
     });
 };
 
+const removeCrawler = async (projectId, id) => {
+    await client.request(`mutation ($projectId: Int! ,$id: Int!) {
+        removeCrawler(projectId: $projectId, id: $id)
+    }`, {
+        projectId, id,
+    })
+};
+
 export default {
     signup,
     signin,
@@ -413,4 +421,5 @@ export default {
     addRecord,
     startCrawl,
     pauseCrawl,
+    removeCrawler,
 };
