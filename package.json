@@ -22,6 +22,7 @@
     "eslint-plugin-import": "^2.8.0",
     "graphql-request": "^1.4.1",
     "gravatar-url": "^2.0.0",
+    "is-url": "^1.2.4",
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "prop-types": "^15.6.0",

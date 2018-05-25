@@ -104,15 +104,19 @@ const Record = ({ record, recordContent}) => {
                                 </div>
                                 <div className="dropdown-menu" id={`dropdown-menu_${crawler.id}`} role="menu">
                                     <div className="dropdown-content"style={{width: "14rem", background:"#f2f2f2"}}>
-                                        <div className="dropdown-item">Crawl Interval: {crawler.cron}</div>
-                                        <div className="dropdown-item">Crawl Status: &nbsp; 
+                                        <div className="dropdown-item">Fetch Interval: {crawler.cron ? crawler.cron : 'None'}</div>
+                                        <div className="dropdown-item">Fetch Status: &nbsp; 
                                         <div className="field" style={{display: 'inline-block'}}>
                                             <input id={`switchExample_${crawler.id}`} type="checkbox" name="switchExample" className="switch is-rounded is-success" 
                                                 checked={
                                                     this.crawlerStatus ? 'checked' : ''
                                                 }
                                                 onClick={() => {
-                                                    this.changeCrawlerStatus(crawler.id);
+                                                    if (crawler.cron) {
+                                                        this.changeCrawlerStatus(crawler.id);
+                                                    } else {
+                                                        alert('Not able to do loop fetch for on-demond fetcher');
+                                                    }
                                                 }}
                                             />
                                             <label htmlFor={`switchExample_${crawler.id}`}></label>

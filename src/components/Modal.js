@@ -4,6 +4,7 @@ import { observable } from "mobx";
 import requests from '../requests';
 import uiStore from '../stores/uiStore';
 import userStore from '../stores/userStore';
+import isUrl from 'is-url';
 
 /**
  * // TODO: extract to a function
@@ -71,6 +72,10 @@ var getElementTreeXPath = function(element)
     */];
 
     async getFullHtml() {
+        if(!isUrl(this.url)) {
+            alert('Invalid url, please insert url start with http/https');
+            throw new Error('invalid url');
+        }
         this.isFetchingHTML = true;
         this.fullHtml = await requests.getFullHtml(this.url);
         this.isFetchingHTML = false;
@@ -155,7 +160,6 @@ var getElementTreeXPath = function(element)
                     uiStore.isAddFetcherModalVisable = false
                     this.clearModalLocalState();
                 }}></button>
-                <progress className="progress is-small is-success" value="35" max="100" style={{height:7, margin:0, position:'fixed', bottom:0}}/>
                 <section className="model-card container" style={{width:"99%", borderRadius:'5px', height: window.innerHeight * 0.8, overflowY:'scroll', backgroundColor:'#fff', padding:'1rem'}}>    
 
                     <h2 className="is-size-4 has-text-weight-semibold">Add new fetcher</h2>
@@ -175,7 +179,7 @@ var getElementTreeXPath = function(element)
                                 </a>
                             </div>
                         </div>
-                        <p className="help">It normally takes 10-20 seconds to load the html</p>
+                        <p className="help">It normally takes 5-10 seconds to load the html</p>
                     </div>
                     <br/>
 
