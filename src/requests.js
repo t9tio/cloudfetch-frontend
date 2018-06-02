@@ -7,7 +7,13 @@ let client = new GraphQLClient(backendUrl, {
     },
 });
 
+const signout = () => {
+    window.localStorage.removeItem('authToken');
+};
+
 const signup = async (username, email, password) => {
+    // remove token in case there is invald one
+    signout();
     const query = `mutation ($username: String!, $email: String!, $password: String!) {
         signup(username: $username, email: $email, password: $password){
             token
@@ -39,6 +45,8 @@ const signup = async (username, email, password) => {
 };
 
 const signin = async (email, password) => {
+    // remove token in case there is invald one
+    signout();
     const query = `mutation ($email: String!, $password: String!) {
         signin(email: $email, password: $password){
             token
@@ -64,10 +72,6 @@ const signin = async (email, password) => {
         },
     });
     return data.signin.user;
-};
-
-const signout = () => {
-    window.localStorage.removeItem('authToken');
 };
 
 const getMe = async () => {

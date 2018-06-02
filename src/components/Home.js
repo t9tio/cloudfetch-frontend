@@ -8,7 +8,7 @@ export default function Home() {
                     <div className="container">
                         <h1 className="title">CloudFetch</h1>
                         <h2 className="subtitle">
-              Fetch data for you from any website, with any time interval.
+                            Monitor/collect data from any website, with any time interval, by several clicks
                         </h2>
                         <p className="content">
                             {/* Site uptime monit.
@@ -27,7 +27,7 @@ export default function Home() {
                         </div>
                         <h2 className="subtitle">
                             <strong>Subscribed</strong> to get email notification when there&#39;s new contents in a project.<br/><br/>
-                            <strong>Star</strong> to bookmark a prject when you are interested but don&#39;t want to get notification email.
+                            <strong>Star</strong> to bookmark a project when you are interested but don&#39;t want to get notification email.
                         </h2>
                         <h2 className="subtitle">
                         </h2>
