@@ -4,3 +4,16 @@ body {
   font-family: sans-serif;
   overflow: hidden;
 }
+
+.display-none {
+    display: none;
+}
+/* .star-btn-icon:hover:before{
+    content:'Star ';
+    white-space: pre;
+}
+
+.subscribe-btn-icon:hover:before{
+    content:'Subscribe ';
+    white-space: pre;
+} */

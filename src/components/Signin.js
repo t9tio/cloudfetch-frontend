@@ -40,7 +40,7 @@ export default observer(() => {
 
     if (userStore.me.username) {
         return (
-            <Redirect to="/" />
+            <Redirect to="/myWatchList"/>
         );
     } else {
         return Element;

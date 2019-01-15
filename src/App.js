@@ -14,14 +14,20 @@ import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Project from './components/Project';
 import Member from './components/Member';
-import AddMonitor from './components/AddMonitor';
+import CreateFetcher from './components/CreateFetcher';
 import IsLoading from './components/IsLoading';
 import Footer from './components/Footer';
+import SignupModal from './components/SignupModal';
+import WatchList from './components/WatchList';
+import Unread from './components/Unread';
+import Pricing from './components/Pricing';
+import Thankyou from './components/Thankyou';
 
 @observer
 class App extends Component {
     async componentDidMount() {
-        if(window.localStorage.getItem("authToken")) {
+        if (window.localStorage.getItem("authToken")) {
+            // TODO: setInterval to geMe repeatly to get unRead contents?
             await userStore.getMe();
         }
     }
@@ -34,12 +40,17 @@ class App extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route path="/signup" component={Signup}/>
                     <Route path="/signin" component={Signin}/>
+                    <Route path="/unread" component={Unread}/>
+                    <Route path="/myWatchList" component={WatchList}/>
                     <Route path="/member/:id" component={Member}/>
                     <Route path="/explore" component={Explore}/>
                     <Route path="/project/:id" component={Project}/>
-                    <Route path="/addMonitor" component={AddMonitor}/>
+                    <Route path="/createFetcher" component={CreateFetcher}/>
+                    <Route path="/Pricing" component={Pricing}/>
+                    <Route path="/thankyou" component={Thankyou}/>
                     <Footer/>
                     <IsLoading isLoading={userStore.isLoading}/>
+                    <SignupModal/>
                 </div>
             </Router>
         );

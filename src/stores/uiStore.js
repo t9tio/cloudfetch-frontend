@@ -1,7 +1,11 @@
 import { observable } from 'mobx';
 
 class UI {
-    @observable isAddFetcherModalVisable = false;
+    @observable isSignupModalActive = false;
+    @observable signupModalHeading = '';
+    @observable signupModalRedirect = '/explore';
+    @observable isFetcherPreviewActive = false;
+    @observable activeTab = '';
 }
 
 const ui = new UI();

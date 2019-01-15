@@ -14,6 +14,7 @@ $desktop:	960px + (2 * $gap);
 $widescreen: 9999999px;
 $fullhd: 9999999px;
 $background: #ffffff;
+$badge-border-size: 0px;
 // $dark: #194769;
 // $success: #1DCED8;
 // $danger: #F2855E;
@@ -21,3 +22,5 @@ $background: #ffffff;
 // 6. Import the rest of Bulma
 @import "../node_modules/bulma/bulma";
 @import '../node_modules/bulma-extensions/bulma-switch/dist/bulma-switch';
+@import '../node_modules/bulma-extensions/bulma-badge';
+@import '../node_modules/bulma-extensions/bulma-pricingtable';

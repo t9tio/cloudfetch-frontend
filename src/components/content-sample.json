@@ -1,0 +1,11 @@
+{
+  "requestId": "b261a77a-0411-11e9-9904-d3c1de14c10f",
+  "url": "https://news.ycombinator.com/",
+  "selectors": "*:nth-child(3) *:nth-child(1) > *:nth-child(3) > *:nth-child(1)",
+  "contents": [
+    {
+      "innerText": "For First Time in More Than 20 Years, Copyrighted Works Will Enter Public Domain",
+      "href": "https://www.smithsonianmag.com/arts-culture/first-time-20-years-copyrighted-works-enter-public-domain-180971016/?preview"
+    }
+  ]
+}

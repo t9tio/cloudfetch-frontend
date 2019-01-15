@@ -1,17 +1,20 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src",
     "start": "parcel public/index.html",
-    "build": "npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./ "
+    "startNoCache": "parcel public/index.html  --no-cache",
+    "build": "npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./ --no-cache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@medv/finder": "^1.1.1",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
@@ -27,22 +30,27 @@
     "mobx-react": "^4.3.5",
     "prop-types": "^15.6.0",
     "query-str": "^1.1.3",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.7.0-alpha.2",
+    "react-beautiful-dnd": "^10.0.3",
+    "react-dom": "^16.6.3",
     "react-router-dom": "^4.2.2",
     "set-query-string": "^2.2.0",
     "timeago.js": "^3.0.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-airbnb": "^2.4.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-react": "^7.6.0",
-    "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.5.0"
+    "install": "^0.12.2",
+    "node-sass": "^4.10.0",
+    "npm": "^6.5.0",
+    "parcel-bundler": "^1.10.3"
   }
 }

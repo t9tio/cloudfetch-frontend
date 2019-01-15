@@ -18,14 +18,11 @@ class Explore extends Component {
         if (activeTab === 'stars') {
             await userStore.getUserStarredProjects(this.props.match.params.id);
         }
-        if (activeTab === 'subscribes') {
-            await userStore.getUserSubscribedProjects(this.props.match.params.id);
-        }
     }
 
     render() {
         const createDateDetail = new Date(userStore.user.createdAt);
-        const createDate = `${createDateDetail.getFullYear()}/${createDateDetail.getMonth()}/${createDateDetail.getDate()}`;
+        const createDate = `${createDateDetail.getFullYear()}/${createDateDetail.getMonth() + 1}/${createDateDetail.getDate()}`;
         
         // https://stackoverflow.com/questions/29852998/getting-query-parameters-from-react-router-hash-fragment
         const paramsString = this.props.location.search;
@@ -54,26 +51,18 @@ class Explore extends Component {
                                 </li>
                                 <li className={activeTab === 'stars' ? 'is-active' : ''}>
                                     <Link to={{ search: '?tab=stars' }} onClick={() => userStore.getUserStarredProjects(userStore.user.id)}>
-                                        Stars
-                                    </Link>
-                                </li>
-                                <li className={activeTab === 'subscribes' ? 'is-active' : ''}>
-                                    <Link to={{ search: '?tab=subscribes' }} onClick={() => userStore.getUserSubscribedProjects(userStore.user.id)}>
-                                        Subscribes
+                                       Subscriptions 
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
                         {
-                            !activeTab ? <ProjectList projects={userStore.user.projects} columnCount={2}/> : <span/>
+                            !activeTab ? <ProjectList projects={userStore.user.projects} columnCount={1}/> : <span/>
                         }
                         
                         {
-                            activeTab === 'stars' ? <ProjectList projects={userStore.projects} columnCount={2}/> : <span/>
-                        }
-                        {
-                            activeTab === 'subscribes' ? <ProjectList projects={userStore.projects} columnCount={2}/> : <span/>
+                            activeTab === 'stars' ? <ProjectList projects={userStore.projects} columnCount={1}/> : <span/>
                         }
                     </div>
                 </div>

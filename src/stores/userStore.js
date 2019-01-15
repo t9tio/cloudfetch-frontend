@@ -10,6 +10,11 @@ class User {
         username: '',
         email: '',
         createdAt: '',
+        unreadContents: [],
+        projects: [],
+        starredProjects: [],
+        plan: '',
+        nextBillDate: '',
     }
     // the user 'me' is viewing
     @observable user = {
@@ -26,35 +31,52 @@ class User {
         id: '',
         name: '',
         description: '',
+        color: '',
         star: '',
         isStarred: '',
-        subscribeCount: '',
-        isSubscribed: '',
+        latestContent: {
+            id:'',
+            name:'',
+            color:'',
+            url:'',
+            selectors:'',
+            contents:'',
+            contentGroups:'',
+            createdAt:'',
+        },
+        url: '',
+        contentGroups: [],
         createdAt: '',
         createdBy: {
             id: '',
             username: '',
         },
-        crawlers: [{
-            id: '',
-            name: '',
-            url: '',
-            cron: '',
-            status: '',
-            timezone: '',
-            contentCount: '',
-            records: [],
-        }]
     };
 
     @observable isLoading = false;
 
     @action async signup(username, email, password) {
+        // window.mixpanel.track("signup");
         this.me = await requests.signup(username, email, password);
+        // Identify a user with a unique ID instead of a Mixpanel randomly generated distinct_id.
+        // window.mixpanel.identify(this.me.email);
+        // window.mixpanel.people.set({
+        //     "$email": this.me.email,    // only special properties need the $
+        //     "$name": this.me.username,
+        //     "$created": this.me.createdAt,
+        //     "$last_login": new Date(),         // properties can be dates...
+        // });
     }
     
     @action async signin(email, password) {
+        // window.mixpanel.track("signin");
         this.me = await requests.signin(email, password);
+        // window.mixpanel.identify(this.me.email);
+        // window.mixpanel.people.set({
+        //     "$email": this.me.email,    // only special properties need the $
+        //     "$name": this.me.username,
+        //     "$last_login": new Date(),         // properties can be dates...
+        // });
     }
 
     @action async signout() {
@@ -70,7 +92,7 @@ class User {
     @action async getMe() {
         // FIXME: assign key by key?
         const user = await requests.getMe();
-        this.me = user;
+        if (user) this.me = user;
     }
 
     @action async getUser(userId) {
@@ -94,11 +116,6 @@ class User {
         this.projects = projects;
     }
 
-    @action async getUserSubscribedProjects(userId) {
-        const projects = await requests.userSubscribedProjects(userId);
-        this.projects = projects;
-    }
-
     @action async getProjectStargazers(projectId) {
         const users = await requests.projectStargazers(projectId);
         this.users = users;
@@ -112,8 +129,6 @@ class User {
             description: '',
             star: '',
             isStarred: '',
-            subscribeCount: '',
-            isSubscribed: '',
             createdAt: '',
             createdBy: {
                 id: '',

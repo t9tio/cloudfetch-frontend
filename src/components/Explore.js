@@ -41,7 +41,7 @@ class Explore extends Component {
 
                     </ul>
                 </div>
-                <ProjectList projects={userStore.projects} columnCount={3}/>
+                <ProjectList projects={userStore.projects} columnCount={2}/>
             </div>
         );
     }

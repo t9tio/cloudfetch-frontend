@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
 import userStore from '../stores/userStore';
+import validateEmail from '../utils/validateEmail';
 
 export default observer(() => {
 
@@ -9,7 +10,12 @@ export default observer(() => {
         const username = document.querySelector('#usernameInput').value;
         const email = document.querySelector('#emailInput').value;
         const password = document.querySelector('#passwordInput').value;
-        await userStore.signup(username, email, password);
+        const isEmailValidate = validateEmail(email);
+        if (isEmailValidate) {
+            await userStore.signup(username, email, password);
+        } else {
+            alert('Looks the email you input is not a valid email address')
+        }
     }
 
     const Element =
