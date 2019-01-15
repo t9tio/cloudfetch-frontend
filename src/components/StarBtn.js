@@ -25,7 +25,6 @@ class StarBtn extends Component {
                 await requests.unstar(project.id);
             } else {
                 // TODO: limit user from star project
-                console.log('hi')
                 // alert user: reach the max number of subscribe;
                 // alert msg can lead user to pricing page
                 try {

@@ -275,7 +275,6 @@ const getFullHtml = async (url) => {
             url,
         },
     })
-    console.log(data.html)
     return data.html;
 };
 

@@ -12,7 +12,6 @@ import ContentsTbody from './ContentsTbody';
 class UnreadCard extends Component {
 
     async removeUnreadContents(id) {
-        console.log(id)
         await requests.removeUnreadContents(id);
         await userStore.getMe();
     }

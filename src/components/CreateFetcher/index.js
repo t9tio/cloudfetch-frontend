@@ -94,8 +94,6 @@ import userStore from '../../stores/userStore';
                     className: () => false,
                     tagName: () => false,
                 });
-                console.log(target)
-                console.log(selector)
                 const cloneNode = target.cloneNode(true);
                 cloneNode.style.backgroundColor = null;
                 this.records.push({
@@ -108,7 +106,6 @@ import userStore from '../../stores/userStore';
 
         }
 
-        console.log(iframeWindow);
     }
 
     render() {
@@ -125,7 +122,7 @@ import userStore from '../../stores/userStore';
                     <label className="label">Step 1: Input website url and fetch </label>
                     <div className="field has-addons">
                         <div className="control has-icons-left is-expanded">
-                            <input id="url_to_fetch" className="input is-dark" type="text" placeholder="URL e.g. http://timqian.com" value={this.url} onChange={() => {
+                            <input id="url_to_fetch" className="input is-dark" type="text" placeholder="URL e.g. https://news.ycombinator.com" value={this.url} onChange={() => {
                                 this.url = document.querySelector('#url_to_fetch').value
                             }} onKeyDown={(e)=>{
                                 if (e.keyCode === 13) {

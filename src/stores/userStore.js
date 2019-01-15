@@ -56,27 +56,27 @@ class User {
     @observable isLoading = false;
 
     @action async signup(username, email, password) {
-        // window.mixpanel.track("signup");
+        window.mixpanel.track("signup");
         this.me = await requests.signup(username, email, password);
         // Identify a user with a unique ID instead of a Mixpanel randomly generated distinct_id.
-        // window.mixpanel.identify(this.me.email);
-        // window.mixpanel.people.set({
-        //     "$email": this.me.email,    // only special properties need the $
-        //     "$name": this.me.username,
-        //     "$created": this.me.createdAt,
-        //     "$last_login": new Date(),         // properties can be dates...
-        // });
+        window.mixpanel.identify(this.me.email);
+        window.mixpanel.people.set({
+            "$email": this.me.email,    // only special properties need the $
+            "$name": this.me.username,
+            "$created": this.me.createdAt,
+            "$last_login": new Date(),         // properties can be dates...
+        });
     }
     
     @action async signin(email, password) {
-        // window.mixpanel.track("signin");
+        window.mixpanel.track("signin");
         this.me = await requests.signin(email, password);
-        // window.mixpanel.identify(this.me.email);
-        // window.mixpanel.people.set({
-        //     "$email": this.me.email,    // only special properties need the $
-        //     "$name": this.me.username,
-        //     "$last_login": new Date(),         // properties can be dates...
-        // });
+        window.mixpanel.identify(this.me.email);
+        window.mixpanel.people.set({
+            "$email": this.me.email,    // only special properties need the $
+            "$name": this.me.username,
+            "$last_login": new Date(),         // properties can be dates...
+        });
     }
 
     @action async signout() {

@@ -41,7 +41,7 @@ function migrate2DArr({arr, ii, opration}) {
 module.exports = migrate2DArr;
 
 // test
-console.log('up', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:4, opration:'up'}));
-console.log('up up', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:2, opration:'up'}));
-console.log('down', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:5, opration:'down'}));
-console.log('down down', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:4, opration:'down'}));
+// console.log('up', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:4, opration:'up'}));
+// console.log('up up', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:2, opration:'up'}));
+// console.log('down', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:5, opration:'down'}));
+// console.log('down down', migrate2DArr({arr:[[1,2],[5],[3,4]], ii:4, opration:'down'}));
