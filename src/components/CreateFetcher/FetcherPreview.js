@@ -10,7 +10,7 @@ import {withRouter} from "react-router-dom";
 @observer class FetcherPreview extends Component{
     @observable fetcherName = ''; // TODO
     @observable contentGroups = this.props.records.map((_, i)=>[i]); // []
-    @observable fetchInterval; // in seconds
+    @observable fetchInterval = 60 * 60 * 24; // in seconds; default: daily
     @observable isLoading = false;
 
     async closeModal() {
