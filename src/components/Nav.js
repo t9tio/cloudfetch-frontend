@@ -24,9 +24,9 @@ class Nav extends Component {
         this.burgerIsActive = false;
     }
 
-    activeSignupModal(redirect) {
+    activeSignupModal(redirect, heading) {
         uiStore.isSignupModalActive = true;
-        uiStore.signupModalHeading = 'Sign up to watch/create fetchers';
+        uiStore.signupModalHeading = heading;
         uiStore.signupModalRedirect = redirect;
     }
 
@@ -34,7 +34,7 @@ class Nav extends Component {
         if(userStore.me.email) {
             this.props.history.push('/myWatchList')
         } else {
-            this.activeSignupModal('/');
+            this.activeSignupModal('/', 'Sign up to watch fetchers');
         }
     }
 
@@ -42,7 +42,7 @@ class Nav extends Component {
         if(userStore.me.email) {
             this.props.history.push('/unread')
         } else {
-            this.activeSignupModal('/');
+            this.activeSignupModal('/', 'Sign up to watch fetchers');
         }
     }
 
@@ -55,13 +55,18 @@ class Nav extends Component {
         const badgeClass = 'badge is-badge-small is-badge-success';
 
         return (
-            <nav className="navbar is-dark is-bold" role="navigation" aria-label="main navigation">
+            <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
                 <div className="container">
                     <div className="navbar-brand">
                         <Link to="/" className="navbar-item" >
                             <img src={favicon} width="28" height="28"/>
                         </Link>
-
+                        <a className={`navbar-item ${this.props.location.pathname === '/unread' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.navToUnread()}>
+                            <span className={userStore.me.unreadContents && userStore.me.unreadContents.length > 0 ? badgeClass : ''} data-badge=""><strong>Unread</strong></span>
+                        </a>
+                        <a className={`navbar-item ${this.props.location.pathname === '/myWatchList' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.navToWatchList()}>
+                            <strong>My watch list</strong>
+                        </a>
                         <a
                             className={`button navbar-burger is-dark ${this.burgerIsActive ? 'is-active' : ''}`} 
                             onClick={() => this.toggleBurger()}
@@ -77,12 +82,7 @@ class Nav extends Component {
                         onClick={() => {this.inactiveBurger()}}    
                     >
                         <div className="navbar-start">
-                            <a className={`navbar-item ${this.props.location.pathname === '/unread' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.navToUnread()}>
-                                <span className={userStore.me.unreadContents && userStore.me.unreadContents.length > 0 ? badgeClass : ''} data-badge=""><strong>Unread</strong></span>
-                            </a>
-                            <a className={`navbar-item ${this.props.location.pathname === '/myWatchList' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.navToWatchList()}>
-                                <strong>My watch list</strong>
-                            </a>
+
                             <Link to="/pricing" className={`navbar-item ${this.props.location.pathname === '/pricing' ? 'is-active' : ''}`} style={{color: 'white'}}>
                                 <strong>Pricing</strong>
                             </Link>
@@ -112,7 +112,7 @@ class Nav extends Component {
                                 </div>
                                 :
                                 <div className="navbar-end">
-                                    <a className={`navbar-item ${this.props.location.pathname === '/createFetcher' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.activeSignupModal('/createFetcher')}>
+                                    <a className={`navbar-item ${this.props.location.pathname === '/createFetcher' ? 'is-active' : ''}`} style={{color: 'white'}} onClick={() => this.activeSignupModal('/createFetcher', 'Sign up to create fetchers')}>
                                         <strong>Create fetcher</strong>
                                     </a>
                                     <Link to="/signup" className="navbar-item" style={{color: 'white'}}>

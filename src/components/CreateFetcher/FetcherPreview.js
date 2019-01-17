@@ -85,6 +85,9 @@ import {withRouter} from "react-router-dom";
                             case 'monthly':
                                 this.fetchInterval = 60 * 60 * 24 * 30;
                                 break;
+                            case 'on demond':
+                                this.fetchInterval = null;
+                                break;
                             default:
                                 break;
                             }

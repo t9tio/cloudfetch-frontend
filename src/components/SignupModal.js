@@ -34,10 +34,9 @@ class Modal extends Component {
 
     render() {
         const Element =
-        <div className={`modal ${uiStore.isSignupModalActive ? 'is-active' : ''}`} >
-            <div className="modal-background"></div>
-            <div className="modal-content">
-                <div className="modal-card">
+            <div className={`modal ${uiStore.isSignupModalActive ? 'is-active' : ''}`}>
+                <div className="modal-background"></div>
+                <div className="modal-card" style={{maxWidth:'22rem'}}>
                     <header className="modal-card-head">
                         <p className="modal-card-title">{uiStore.signupModalHeading}</p>
                         <button className="delete" aria-label="close" onClick={this.closeModal}></button>
@@ -70,8 +69,7 @@ class Modal extends Component {
                         <p className="help">Already have an account? <a onClick={() => this.signin()}>sign in</a></p>
                     </footer>
                 </div>
-            </div>
-        </div>;
+            </div>;
 
 
         return Element;

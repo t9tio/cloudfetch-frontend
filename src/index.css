@@ -17,3 +17,14 @@ body {
     content:'Subscribe ';
     white-space: pre;
 } */
+
+.has-bg-img {
+    --tint: rgba(1, 100, 85, 0.93);
+    background-image: linear-gradient(var(--tint), var(--tint)), url(../public/background.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.has-bg-img > * {
+}

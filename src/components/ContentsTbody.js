@@ -10,7 +10,7 @@ function Footer ({contents, contentGroups}) {
 
     const contentTBody = groupArr.map((group, i) => 
         <tr key={`group_${i}`}>
-            <th>
+            <td>
                 {
                     group.map(index => {
                         const content = contentArr[index];
@@ -33,7 +33,7 @@ function Footer ({contents, contentGroups}) {
                         return pre;
                     }, [])
                 }
-            </th>
+            </td>
         </tr>
     );
     

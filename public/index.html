@@ -9,11 +9,6 @@
     <link rel="apple-touch-icon" href="./favicon.ico">
     <link rel="bookmark" href="./favicon.ico">
     <link rel="shortcut icon" href="./favicon.ico">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css">
     <title>Cloud Fetch</title>
 
@@ -26,34 +21,7 @@ mixpanel.init("75aac56ac6e831f6cadf6cf199654d7a");
     </script>
 <!-- end Mixpanel -->
 
-<!-- Start of Async Drift Code -->
-<script>
-    "use strict";
-    
-    !function() {
-      var t = window.driftt = window.drift = window.driftt || [];
-      if (!t.init) {
-        if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-        t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
-        t.factory = function(e) {
-          return function() {
-            var n = Array.prototype.slice.call(arguments);
-            return n.unshift(e), t.push(n), t;
-          };
-        }, t.methods.forEach(function(e) {
-          t[e] = t.factory(e);
-        }), t.load = function(t) {
-          var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-          o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-          var i = document.getElementsByTagName("script")[0];
-          i.parentNode.insertBefore(o, i);
-        };
-      }
-    }();
-    drift.SNIPPET_VERSION = '0.3.1';
-    drift.load('yf9b4pm42evh');
-    </script>
-    <!-- End of Async Drift Code -->
+
 
 </head>
 

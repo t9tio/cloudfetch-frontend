@@ -25,7 +25,8 @@ import userStore from '../../stores/userStore';
     // TODO!!!!!!!!
     async toggleModal() {
         if (!userStore.me.plan || userStore.me.plan === 'free') {
-            alert('Free user is not allowed to create fetcher, see the pricing page for more info.');
+            const isRedirecting = confirm('Free user is not allowed to create fetcher, see the pricing page for more info.');
+            if (isRedirecting) this.props.history.push('/pricing');
             return;
         }
         uiStore.isFetcherPreviewActive = true;
@@ -110,70 +111,71 @@ import userStore from '../../stores/userStore';
 
     render() {
         return (
-            <div className="container">
-                <FetcherPreview url={this.url} records={this.records} key={this.records.length}/>
+            <div className="section">
+                <div className="container">
+                    <FetcherPreview url={this.url} records={this.records} key={this.records.length}/>
 
-                <br/>
-                <h2 className="is-size-4 has-text-weight-semibold">Create a new fetcher</h2>
-                <p className="is-size-6">Fetch any web page and select what interests you</p>
-                <br/>
-
-                <div>
-                    <label className="label">Step 1: Input website url and fetch </label>
-                    <div className="field has-addons">
-                        <div className="control has-icons-left is-expanded">
-                            <input id="url_to_fetch" className="input is-dark" type="text" placeholder="URL e.g. https://news.ycombinator.com" value={this.url} onChange={() => {
-                                this.url = document.querySelector('#url_to_fetch').value
-                            }} onKeyDown={(e)=>{
-                                if (e.keyCode === 13) {
-                                    this.getFullHtml();
-                                }
-                            }}/>
-                            <span className="icon is-left">
-                                <i className="fas fa-link"></i>
-                            </span>
-                        </div>
-                        <div className="control">
-                            <a className={`button is-dark is-outlined ${this.isFetchingHTML ? 'is-loading' : ''}`} onClick={() => this.getFullHtml()}>
-                                Fetch
-                            </a>
-                        </div>
-                    </div>
-
-                    {/**https://coderwall.com/p/hkgamw/creating-full-width-100-container-inside-fixed-width-container : wilder: , width: '96vw', marginLeft: '-48vw', left: '50%', position: 'relative'*/}
-                    <label className="label">Step 2: Choose the content you want by clicking them</label>
-                    <div id="iframeContainer" style={{borderStyle: 'solid', borderColor:'hsl(0, 0%, 21%)', borderWidth:'5px', borderRadius:'5px'}}>
-                        <iframe id='iframe' sandbox="allow-forms allow-scripts allow-same-origin allow-popups" style={{width:'100%', height:500}}></iframe>
-
-                        <div style={{backgroundColor:'#eee', padding:5}}>
-                            <h2 className="is-size-6 has-text-weight-semibold"> Selected contents: </h2>
-                            {this.records.map((record, i) => {
-                                return (
-                                    <div key={i} style={{margin:'.3rem'}}>
-                                        <a className="delete" onClick={() => {
-                                            this.records[i].target.clicked = false;
-                                            this.records[i].target.style.backgroundColor = null;
-                                            this.records.splice(i,1);
-                                        }}>delete</a> &nbsp;
-
-                                        {
-                                            record.href ?
-                                                <a href={record.href}>{record.innerText}</a>
-                                                :
-                                                <span>{record.innerText}</span>
-                                        }
-                                        <br/>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-
+                    <h1 className="is-size-4 has-text-weight-semibold">Create a new fetcher</h1>
+                    <p className="is-size-6">Fetch any web page and select what interests you</p>
                     <br/>
+
+                    <div>
+                        <label className="label">Step 1: Input website url and fetch </label>
+                        <div className="field has-addons">
+                            <div className="control has-icons-left is-expanded">
+                                <input id="url_to_fetch" className="input is-dark" type="text" placeholder="URL e.g. https://news.ycombinator.com" value={this.url} onChange={() => {
+                                    this.url = document.querySelector('#url_to_fetch').value
+                                }} onKeyDown={(e)=>{
+                                    if (e.keyCode === 13) {
+                                        this.getFullHtml();
+                                    }
+                                }}/>
+                                <span className="icon is-left">
+                                    <i className="fas fa-link"></i>
+                                </span>
+                            </div>
+                            <div className="control">
+                                <a className={`button is-dark is-outlined ${this.isFetchingHTML ? 'is-loading' : ''}`} onClick={() => this.getFullHtml()}>
+                                Fetch
+                                </a>
+                            </div>
+                        </div>
+
+                        {/**https://coderwall.com/p/hkgamw/creating-full-width-100-container-inside-fixed-width-container : wilder: , width: '96vw', marginLeft: '-48vw', left: '50%', position: 'relative'*/}
+                        <label className="label">Step 2: Choose the content you want by clicking them</label>
+                        <div id="iframeContainer" style={{borderStyle: 'solid', borderColor:'hsl(0, 0%, 21%)', borderWidth:'5px', borderRadius:'5px'}}>
+                            <iframe id='iframe' sandbox="allow-forms allow-scripts allow-same-origin allow-popups" style={{width:'100%', height:500}}></iframe>
+
+                            <div style={{backgroundColor:'#eee', padding:5}}>
+                                <h2 className="is-size-6 has-text-weight-semibold"> Selected contents: </h2>
+                                {this.records.map((record, i) => {
+                                    return (
+                                        <div key={i} style={{margin:'.3rem'}}>
+                                            <a className="delete" onClick={() => {
+                                                this.records[i].target.clicked = false;
+                                                this.records[i].target.style.backgroundColor = null;
+                                                this.records.splice(i,1);
+                                            }}>delete</a> &nbsp;
+
+                                            {
+                                                record.href ?
+                                                    <a href={record.href}>{record.innerText}</a>
+                                                    :
+                                                    <span>{record.innerText}</span>
+                                            }
+                                            <br/>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <br/>
                 
 
-                    <div className="control is-expanded">
-                        <button className="button is-success is-large is-pulled-right" onClick={() => this.toggleModal()}>Create fetcher</button>
+                        <div className="control is-expanded">
+                            <button className="button is-success is-large is-pulled-right" onClick={() => this.toggleModal()}>Create fetcher</button>
+                        </div>
                     </div>
                 </div>
             </div>

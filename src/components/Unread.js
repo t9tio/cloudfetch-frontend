@@ -18,10 +18,10 @@ class Unread extends Component {
         const unreadContents = userStore.me.unreadContents;
 
         return (
-            <div className="container">
-                <br/>
-                <h1 className="title">Unread messages</h1>
-                <UnreadList unreadContents={unreadContents} columnCount={2}/>
+            <div className="section">
+                <div className="container">
+                    <UnreadList unreadContents={unreadContents} columnCount={2}/>
+                </div>
             </div>
         );
     }

@@ -82,6 +82,7 @@ const getMe = async () => {
             id
             username
             email
+            isIntroClosed
             createdAt
             plan
             nextBillDate
@@ -114,6 +115,19 @@ const getMe = async () => {
     }
     return data.me;
 };
+
+const updateMe = async ({username, email, isIntroClosed}) => {
+    const query = `
+        mutation ($username: String, $email: String, $isIntroClosed: Boolean) {
+            updateMe(username: $username, email: $email, isIntroClosed: $isIntroClosed)
+        }
+    `;
+    const variables = {
+        username, email, isIntroClosed,
+    }
+    await client.request(query, variables);
+    return 'ok';
+}
 
 const getUser = async (userId) => {
     const query = `
@@ -298,6 +312,7 @@ export default {
     signin,
     signout,
     getMe,
+    updateMe,
     getUser,
     getProjects,
     getProject,

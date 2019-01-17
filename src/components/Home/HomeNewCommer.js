@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import userStore from '../../stores/userStore';
+import requests from '../../requests';
 import { observer } from 'mobx-react';
 import Explore from '../Explore';
 import uiStore from '../../stores/uiStore';
+import Drift from 'react-driftjs';
 
 @observer
 class Home extends Component {
@@ -10,34 +12,64 @@ class Home extends Component {
         await userStore.getProjects('TOP');
     }
 
-    activeSignupModal() {
+    componentWillUnmount() {
+        if(window.drift) window.drift.unload();
+    }
+
+    activeSignupModal(heading, redirect) {
         uiStore.isSignupModalActive = true;
-        uiStore.signupModalHeading = 'Sign up to create fetcher';
-        uiStore.signupModalRedirect = '/createFetcher';
+        uiStore.signupModalHeading = heading;
+        uiStore.signupModalRedirect = redirect;
+    }
+
+    async closeIntro() {
+        if (userStore.me.email) {
+            await requests.updateMe({isIntroClosed: true});
+            userStore.me.isIntroClosed = true;
+        } else {
+            this.activeSignupModal('Sign up to close intro', '/')
+        }
     }
 
     render() {
+        const intro = <section className="hero is-fullheight-with-navbar has-bg-img">
+            <div className="hero-body" style={{position:'relative'}}>
+                <a className="delete is-large" style={{position:'absolute', top: '1rem', right: '1rem'}} onClick={() => this.closeIntro()}/>
+                <div className="container has-text-centered">
+                    <h1 className="title" style={{color:'white'}}>CloudFetch: Your information center</h1>
+                    <h2 className="subtitle" style={{color:'white'}}>
+                        Never miss interesting updates on your favourite websites
+                    </h2>
+                    <hr/>
+                    <h2 className="container subtitle is-size-4" style={{color:'white'}}>
+                            Here are some interesting fetchers to watch. Click the &quot;<i className="far fa-sm fa-star"/>&quot; button to watch and start receiving updates of the fetcher.
+                    </h2>
+                </div>
+            </div>
+        </section>
+
         return (
             <div>
-                <section className="hero is-medium is-dark is-bold">
-                    <div className="hero-body">
-                        <div className="container has-text-centered">
-                            <h1 className="title">Your information center</h1>
-                            <h2 className="subtitle">
-                                Never miss interesting updates on your favourite websites
-                            </h2>
-                        </div>
-                    </div>
-                </section>
-
+                {userStore.me.isIntroClosed ? '' : intro}
                 <section className="section">
                     <div className="container">
-                        <h2 className="subtitle is-size-4">
-                            Here are some interesting fetchers to watch. Click the &quot;<i className="far fa-sm fa-star"/>&quot; button to start receiving updates
-                        </h2>
                         <Explore location={this.props.location}/>
                     </div>
                 </section>
+                {
+                    userStore.me.email ?
+                        <Drift 
+                            appId="yf9b4pm42evh"
+                            userId={userStore.me.email}
+                            attributes={{
+                                name: userStore.me.username,
+                                email: userStore.me.email,
+                                bio: `id: ${userStore.me.id} plan: ${userStore.me.plan}; nextBillDate: ${userStore.me.nextBillDate}`,
+                            }}
+                        />
+                        :
+                        ''
+                }
             </div>
         );
     }

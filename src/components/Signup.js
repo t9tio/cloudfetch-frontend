@@ -54,7 +54,7 @@ export default observer(() => {
 
     if (userStore.me.username) {
         return (
-            <Redirect to="/explore" />
+            <Redirect to="/" />
         );
     } else {
         return Element;

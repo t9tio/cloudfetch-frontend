@@ -15,16 +15,17 @@ class Project extends Component {
     render() {
         const {project} = userStore;
         return (
-            <div className="container">
-                <br/>
-                <p className="subtitle is-5">
-                    <Link to={`/member/${project.createdBy.id}`}>{project.createdBy.username}</Link>
-                    <span style={{margin: '.2rem'}}>/</span>
-                    <strong><a href="">{project.name}</a></strong>
-                </p>
-                <p>{project.description}</p>
-                <br/>
-                <ProjectCard project={project} columnCount={1} key={project.id}/>
+            <div className="section">
+                <div className="container">
+                    <p className="subtitle is-5">
+                        <Link to={`/member/${project.createdBy.id}`}>{project.createdBy.username}</Link>
+                        <span style={{margin: '.2rem'}}>/</span>
+                        <strong><a href="">{project.name}</a></strong>
+                    </p>
+                    <p>{project.description}</p>
+                    <br/>
+                    <ProjectCard project={project} columnCount={1} key={project.id}/>
+                </div>
             </div>
         );
     }

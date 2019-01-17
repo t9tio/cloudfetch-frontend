@@ -18,9 +18,10 @@ class WatchList extends Component {
 
     render() {
         return (
-            <div className="container">
-                <br/>
-                <ProjectList projects={userStore.projects} columnCount={2}/>
+            <div className="section">
+                <div className="container">
+                    <ProjectList projects={userStore.projects} columnCount={2}/>
+                </div>
             </div>
         );
     }

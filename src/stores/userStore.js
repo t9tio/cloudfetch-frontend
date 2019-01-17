@@ -9,6 +9,7 @@ class User {
         id: '',
         username: '',
         email: '',
+        isIntroClosed: false,
         createdAt: '',
         unreadContents: [],
         projects: [],
@@ -56,27 +57,37 @@ class User {
     @observable isLoading = false;
 
     @action async signup(username, email, password) {
-        window.mixpanel.track("signup");
-        this.me = await requests.signup(username, email, password);
-        // Identify a user with a unique ID instead of a Mixpanel randomly generated distinct_id.
-        window.mixpanel.identify(this.me.email);
-        window.mixpanel.people.set({
-            "$email": this.me.email,    // only special properties need the $
-            "$name": this.me.username,
-            "$created": this.me.createdAt,
-            "$last_login": new Date(),         // properties can be dates...
-        });
+        try {
+            this.me = await requests.signup(username, email, password);
+            window.mixpanel.track("signup");
+            // Identify a user with a unique ID instead of a Mixpanel randomly generated distinct_id.
+            window.mixpanel.identify(this.me.email);
+            window.mixpanel.people.set({
+                "$email": this.me.email,    // only special properties need the $
+                "$name": this.me.username,
+                "$created": this.me.createdAt,
+                "$last_login": new Date(),         // properties can be dates...
+            });
+        } catch (error) {
+            if (error.message.includes('email taken')) alert('Sorry, the email is taken');
+            if (error.message.includes('username taken')) alert('Sorry, the username is taken');
+        }
     }
     
     @action async signin(email, password) {
-        window.mixpanel.track("signin");
-        this.me = await requests.signin(email, password);
-        window.mixpanel.identify(this.me.email);
-        window.mixpanel.people.set({
-            "$email": this.me.email,    // only special properties need the $
-            "$name": this.me.username,
-            "$last_login": new Date(),         // properties can be dates...
-        });
+        try {
+            this.me = await requests.signin(email, password);
+            window.mixpanel.track("signin");
+            window.mixpanel.identify(this.me.email);
+            window.mixpanel.people.set({
+                "$email": this.me.email,    // only special properties need the $
+                "$name": this.me.username,
+                "$last_login": new Date(),         // properties can be dates...
+            });
+        } catch (error) {
+            if (error.message.includes('user not fond')) alert('User not fond');
+            if (error.message.includes('wrong password')) alert('Wrong password');
+        }
     }
 
     @action async signout() {
@@ -92,7 +103,9 @@ class User {
     @action async getMe() {
         // FIXME: assign key by key?
         const user = await requests.getMe();
-        if (user) this.me = user;
+        if (user) {
+            this.me = user;
+        }
     }
 
     @action async getUser(userId) {

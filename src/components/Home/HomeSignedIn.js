@@ -12,9 +12,10 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="container">
-                <br/>
-                <h2 className="subtitle">Recent updates</h2>
+            <div className="section">
+                <div className="container">
+                    <h2 className="subtitle">Recent updates</h2>
+                </div>
             </div>
         );
     }

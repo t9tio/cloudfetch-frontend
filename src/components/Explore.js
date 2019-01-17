@@ -24,7 +24,6 @@ class Explore extends Component {
         const activeTab = params.get('tab');
         return (
             <div className="container">
-                <br/>
                 <div className="tabs is-boxed">
                     <ul>
                         {/**link to url with search: https://reacttraining.com/react-router/web/api/Link/to-object */}
