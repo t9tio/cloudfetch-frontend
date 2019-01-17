@@ -13,7 +13,7 @@ class Home extends Component {
     }
 
     componentWillUnmount() {
-        if(window.drift) window.drift.unload();
+        if(window.drift && window.drift.unload) window.drift.unload();
     }
 
     activeSignupModal(heading, redirect) {

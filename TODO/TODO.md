@@ -33,6 +33,8 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [x] (mobile) unread 留白
 - [x] drift 只在用户点击时open!
 - [x] only show drift on home page
+- [x] auto watch
+- [x] footer color
 - [ ] (mobile) add to home screen option
 - [ ] mixpannel 统计移动端，pc 端用户数量
 - [ ] 把fetcher 加完整！

@@ -23,7 +23,6 @@ class Project extends Component {
                         <strong><a href="">{project.name}</a></strong>
                     </p>
                     <p>{project.description}</p>
-                    <br/>
                     <ProjectCard project={project} columnCount={1} key={project.id}/>
                 </div>
             </div>
