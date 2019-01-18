@@ -35,6 +35,13 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [x] only show drift on home page
 - [x] auto watch
 - [x] footer color
+- [x] add colors to fetcher
+- [x] 变成一小时抓取，查看抓取效果最好的时间
+- [x] 创建就两个 notification bug: 因为 project run immeaitaly 了 nextRunAt 要设为 now + interval 或者让用户自己设
+- [x] 65折？
+- [ ] feature suggestions upvote system
+- [ ] open source! so users can contribute and get discount!!!!!!!
+- [ ] 打勾，先消失再做request? 
 - [ ] (mobile) add to home screen option
 - [ ] mixpannel 统计移动端，pc 端用户数量
 - [ ] 把fetcher 加完整！
@@ -43,13 +50,14 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [ ] read it later
 - [ ] update/del project
 - [ ] cancel plan / change payment info
+- [ ] 让用户考虑按年支付（打6折）
 - [ ] hover hint / onboarding guide?
 - [ ] explore: more than hot/new
 - [ ] update project UI
 - [ ] member page proejct cards
 - [ ] browser like ui https://nextjs.org/#file-system-routing  https://codesandbox.io/s/vanilla
 - [ ] landing page SEO
-
+- [ ] user define next run at
 - [ ] handle fetch fail
 
 ## Bugs

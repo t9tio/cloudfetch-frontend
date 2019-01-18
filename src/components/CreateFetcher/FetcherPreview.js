@@ -43,7 +43,7 @@ import {withRouter} from "react-router-dom";
                     selectors: this.props.records.map(record => record.selector).join(','),
                     contentGroups: JSON.stringify(this.contentGroups),
                     fetchInterval: this.fetchInterval,
-                    nextRunAt: new Date().toISOString(),
+                    nextRunAt: this.fetchInterval ? new Date(new Date().getTime() + this.fetchInterval * 1000).toISOString() : null,
                 });
                 const { id } = data.addProject;
                 // redirect page, ref: https://stackoverflow.com/a/34735738/4674834

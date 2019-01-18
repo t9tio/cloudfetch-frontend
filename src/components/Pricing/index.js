@@ -63,7 +63,7 @@ class Pricing extends Component {
 
     activeSignupModal() {
         uiStore.isSignupModalActive = true;
-        uiStore.signupModalHeading = 'Sign up first';
+        uiStore.signupModalHeading = 'Please sign up first';
         uiStore.signupModalRedirect = '/pricing';
     }
 
@@ -90,7 +90,7 @@ class Pricing extends Component {
                             <div className="plan-price">
                                 <span className="plan-price-amount" style={{color: 'black'}}>
                                     <span className="plan-price-currency">$</span>
-                                    {plans.free.price * (this.coupon === 'prelaunch-coupon' ? 0.7 : 1)}
+                                    {plans.free.price * (this.coupon === 'prelaunch-coupon' ? 0.65 : 1)}
                                 </span>
                                 /month
                             </div>
@@ -122,7 +122,7 @@ class Pricing extends Component {
                             <div className="plan-price">
                                 <span className="plan-price-amount" style={{color: 'black'}}>
                                     <span className="plan-price-currency">$</span>
-                                    {(plans.copper.price * (this.coupon === 'prelaunch-coupon' ? 0.7 : 1)).toFixed(2)}
+                                    {(plans.copper.price * (this.coupon === 'prelaunch-coupon' ? 0.65 : 1)).toFixed(2)}
                                 </span>
                             /month
                             </div>
@@ -159,7 +159,7 @@ class Pricing extends Component {
                             <div className="plan-price">
                                 <span className="plan-price-amount" style={{color: 'black'}}>
                                     <span className="plan-price-currency">$</span>
-                                    {(plans.silver.price * (this.coupon === 'prelaunch-coupon' ? 0.7 : 1)).toFixed(2)}
+                                    {(plans.silver.price * (this.coupon === 'prelaunch-coupon' ? 0.65 : 1)).toFixed(2)}
                                 </span>
                             /month
                             </div>
@@ -196,7 +196,7 @@ class Pricing extends Component {
                             <div className="plan-price">
                                 <span className="plan-price-amount" style={{color: 'black'}}>
                                     <span className="plan-price-currency">$</span>
-                                    {(plans.gold.price * (this.coupon === 'prelaunch-coupon' ? 0.7 : 1)).toFixed(2)}
+                                    {(plans.gold.price * (this.coupon === 'prelaunch-coupon' ? 0.65 : 1)).toFixed(2)}
                                 </span>
                             /month
                             </div>
