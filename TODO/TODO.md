@@ -39,6 +39,9 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [x] 变成一小时抓取，查看抓取效果最好的时间
 - [x] 创建就两个 notification bug: 因为 project run immeaitaly 了 nextRunAt 要设为 now + interval 或者让用户自己设
 - [x] 65折？
+- [ ] 取消注册，而是让新用户填邮箱即可
+- [ ] 上面的介绍文字不要占满屏幕
+- [ ] 开源 cloudfetch，开源 turn any website to api，介绍文章
 - [ ] feature suggestions upvote system
 - [ ] open source! so users can contribute and get discount!!!!!!!
 - [ ] 打勾，先消失再做request? 

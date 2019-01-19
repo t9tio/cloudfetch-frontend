@@ -32,7 +32,7 @@ class Home extends Component {
     }
 
     render() {
-        const intro = <section className="hero is-fullheight-with-navbar has-bg-img">
+        const intro = <section className="hero is-medium has-bg-img">
             <div className="hero-body" style={{position:'relative'}}>
                 <a className="delete is-large" style={{position:'absolute', top: '1rem', right: '1rem'}} onClick={() => this.closeIntro()}/>
                 <div className="container has-text-centered">
