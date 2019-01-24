@@ -8,7 +8,8 @@
     "start": "parcel public/index.html",
     "startNoCache": "parcel public/index.html  --no-cache",
     "build": "npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./dist --no-cache --no-source-maps",
-    "deploy": "gh-pages-deploy"
+    "deploy": "gh-pages-deploy",
+    "clean-source": "rimraf README.md src public TODO .babelrc .eslintrc package.json"
   },
   "gh-pages-deploy": {
     "staticpath": "dist",
@@ -17,7 +18,9 @@
       "build"
     ],
     "commit": "deploy to gh-pages",
-    "post": [],
+    "post": [
+      "clean-source"
+    ],
     "noprompt": false
   },
   "keywords": [],
@@ -60,9 +63,11 @@
     "babel-preset-react": "^6.24.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-react": "^7.6.0",
+    "gh-pages-deploy": "^0.5.1",
     "install": "^0.12.2",
     "node-sass": "^4.10.0",
     "npm": "^6.5.0",
-    "parcel-bundler": "^1.10.3"
+    "parcel-bundler": "^1.10.3",
+    "rimraf": "^2.6.3"
   }
 }
