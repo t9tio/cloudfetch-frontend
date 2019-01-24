@@ -13,10 +13,10 @@ const signout = () => {
     window.localStorage.removeItem('authToken');
 };
 
-const signup = async (username, email, password) => {
+const signup = async ({username, email, password}) => {
     // remove token in case there is invald one
     signout();
-    const query = `mutation ($username: String!, $email: String!, $password: String!) {
+    const query = `mutation ($username: String, $email: String!, $password: String!) {
         signup(username: $username, email: $email, password: $password){
             token
             user {

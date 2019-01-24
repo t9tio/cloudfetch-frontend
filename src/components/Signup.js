@@ -7,12 +7,11 @@ import validateEmail from '../utils/validateEmail';
 export default observer(() => {
 
     async function onClick() {
-        const username = document.querySelector('#usernameInput').value;
         const email = document.querySelector('#emailInput').value;
         const password = document.querySelector('#passwordInput').value;
         const isEmailValidate = validateEmail(email);
         if (isEmailValidate) {
-            await userStore.signup(username, email, password);
+            await userStore.signup({email, password});
         } else {
             alert('Looks the email you input is not a valid email address')
         }
@@ -23,13 +22,6 @@ export default observer(() => {
             <div className="container">
                 <div className="columns">
                     <div className="column is-one-third is-offset-one-third">
-
-                        <div className="field">
-                            <label className="label">Username</label>
-                            <div className="control">
-                                <input id="usernameInput" className="input" type="text" placeholder="Username" />
-                            </div>
-                        </div>
                         <div className="field">
                             <label className="label">Email address</label>
                             <div className="control">

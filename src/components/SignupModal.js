@@ -7,15 +7,14 @@ import {withRouter} from "react-router-dom";
 
 @observer
 class Modal extends Component {
-    
+
     async signup() {
         // TODO: use state!
-        const username = document.querySelector('#usernameInput').value;
         const email = document.querySelector('#emailInput').value;
         const password = document.querySelector('#passwordInput').value;
         const isEmailValidate = validateEmail(email);
         if (isEmailValidate) {
-            await userStore.signup(username, email, password);
+            await userStore.signup({email, password});
             this.closeModal();
             this.props.history.push(uiStore.signupModalRedirect);
         } else {
@@ -43,12 +42,6 @@ class Modal extends Component {
                     </header>
                     <section className="modal-card-body">
                         <div>
-                            <div className="field">
-                                <label className="label">Username</label>
-                                <div className="control">
-                                    <input id="usernameInput" className="input" type="text" placeholder="Username" />
-                                </div>
-                            </div>
                             <div className="field">
                                 <label className="label">Email address</label>
                                 <div className="control">
