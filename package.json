@@ -7,7 +7,7 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "start": "parcel public/index.html",
     "startNoCache": "parcel public/index.html  --no-cache",
-    "build": "rm -r dist && npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./dist --no-cache --no-source-maps",
+    "build": "npm run lint && NODE_ENV=production && PUBLIC_URL=https://cloudfetch.info && parcel build public/index.html --out-dir ./dist --no-cache --no-source-maps",
     "deploy": "gh-pages-deploy"
   },
   "gh-pages-deploy": {
