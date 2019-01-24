@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "2.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src",
     "start": "parcel public/index.html",

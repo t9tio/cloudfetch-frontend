@@ -42,6 +42,7 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [x] 注册只需邮箱
 - [x] 上面的介绍文字不要占满屏幕
 - [x] 开源 cloudfetch，开源 turn any website to api，介绍文章
+- [ ] tech and startup tabs
 - [ ] feature suggestions upvote system
 - [ ] open source! so users can contribute and get discount!!!!!!!
 - [ ] 打勾，先消失再做request?

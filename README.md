@@ -1,23 +1,25 @@
-# caper-frontend
-frontend repo of caper
+# cloudfetch-frontend
+
+frontend code of https://cloudfetch.info
 
 ## Develop
+
 ```bash
 npm start
 ```
 
 ## Deploy
+
 ```bash
-npm run build
-# push to github
-git add .
-git commit -m 'deploy'
-git push
+# build and deploy to gh-pages
+npm run deploy
 ```
 
 ## Compatitors
+
 - http://www.fenmiaodata.com/
 - https://distill.io
 
 ## Refs
+
 - [share slack invite url](http://qr.ae/TUTa8y)
