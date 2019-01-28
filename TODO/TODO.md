@@ -42,6 +42,14 @@ notification 在主页的问题：用户注册完，在 explore 页面订阅了�
 - [x] 注册只需邮箱
 - [x] 上面的介绍文字不要占满屏幕
 - [x] 开源 cloudfetch，开源 turn any website to api，介绍文章
+- [x] 普通用户应该要允许一个免费 fetcher 才好，让他们可以建好fetcher, 看看效果，Pricing 里可能可以卖 API
+- [ ] delete project
+- [ ] wechat; telegram; slack; ...; j机器人
+- [ ] 提示用户这个功能是用来干嘛的 before ask for email and password
+- [ ] https://github.com/luisvinicius167/ityped turn website to api/rss/ I am a rss client. become an rss client?
+- [ ] rss
+- [ ] use case: subscribe replies on different platforms you share your product
+- [ ] 查看 star 增长
 - [ ] tech and startup tabs
 - [ ] feature suggestions upvote system
 - [ ] open source! so users can contribute and get discount!!!!!!!

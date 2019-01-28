@@ -15,10 +15,10 @@ npm start
 npm run deploy
 ```
 
-## Compatitors
+## Similar services
 
-- http://www.fenmiaodata.com/
 - https://distill.io
+- http://www.fenmiaodata.com/
 
 ## Refs
 

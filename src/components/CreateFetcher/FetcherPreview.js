@@ -53,8 +53,10 @@ import {withRouter} from "react-router-dom";
             }
 
         } catch (error) {
-            // todo
-            if (error.message.includes('Can not')) alert('You can not create more fetchers, See pricing page for more info.')
+            if (error.message.includes('Can not')) {
+                const isRedirecting = confirm('Sorry, you can not create more fetchers, See pricing page for more info.');
+                if (isRedirecting) this.props.history.push('/pricing');
+            }
         }
 
         this.isLoading = false;

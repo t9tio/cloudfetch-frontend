@@ -37,7 +37,23 @@ class Explore extends Component {
                                 New
                             </Link>
                         </li>
-
+                        {/**
+                            <li className={activeTab === 'tech' ? 'is-active' : ''}>
+                                <Link to={{ search: '?' }} onClick={() => userStore.getProjects('TOP')}>
+                                    Tech
+                                </Link>
+                            </li>
+                            <li className={activeTab === 'startup' ? 'is-active' : ''}>
+                                <Link to={{ search: '' }} onClick={() => userStore.getProjects('TOP')}>
+                                    Startup
+                                </Link>
+                            </li>
+                            <li className={activeTab === 'product' ? 'is-active' : ''}>
+                                <Link to={{ search: '' }} onClick={() => userStore.getProjects('TOP')}>
+                                    Product
+                                </Link>
+                            </li>
+                        */}
                     </ul>
                 </div>
                 <ProjectList projects={userStore.projects} columnCount={2}/>

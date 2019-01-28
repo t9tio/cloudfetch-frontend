@@ -24,11 +24,6 @@ import userStore from '../../stores/userStore';
 
     // TODO!!!!!!!!
     async toggleModal() {
-        if (!userStore.me.plan || userStore.me.plan === 'free') {
-            const isRedirecting = confirm('Free user is not allowed to create fetcher, see the pricing page for more info.');
-            if (isRedirecting) this.props.history.push('/pricing');
-            return;
-        }
         uiStore.isFetcherPreviewActive = true;
     }
 
@@ -38,6 +33,10 @@ import userStore from '../../stores/userStore';
         }
     }
 
+    componentWillUnmount() {
+        uiStore.isFetcherPreviewActive = false;
+    }
+    
     async getFullHtml() {
         if(!isUrl(this.url)) {
             alert('Invalid url, please insert url start with http/https');
